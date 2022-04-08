@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [FrontendController::class, 'index']);
-
+Route::post('/contact', [FrontendController::class, 'contact'])->name('contact');
+Route::view('/test', 'test');
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });

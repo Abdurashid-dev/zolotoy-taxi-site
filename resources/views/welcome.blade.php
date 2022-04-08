@@ -100,13 +100,18 @@
 
             <div class="side-footer text-white w-100">
                 <ul class="social-icons-simple">
-                    <li><a class="facebook-text-hvr" href="javascript:void(0)"><i class="fab fa-facebook-f"></i> </a>
-                    </li>
-                    <li><a class="instagram-text-hvr" href="javascript:void(0)"><i class="fab fa-instagram"></i> </a>
-                    </li>
-                    <li><a class="twitter-text-hvr" href="javascript:void(0)"><i class="fab fa-twitter"></i> </a></li>
+                    @foreach($socials as $social)
+                        <li>
+                            <a class="facebook-text-hvr" href="{{$social->url}}">
+                                <i class="{{$social->icon}}"></i>
+                            </a>
+                        </li>
+                    @endforeach
                 </ul>
-                <p class="text-white">&copy; 2020 MegaOne. Made With Love by Themesindustry</p>
+                <p class="text-white">© {{\Illuminate\Support\Carbon::now()->format('Y')}} <a class="text-white"
+                                                                                              href="https://t.me/abdurashid_coder">iSoftware.</a>
+                    All
+                    Rights Reserved.</p>
             </div>
         </div>
     </div>
@@ -127,8 +132,8 @@
                 </div>
             </div>
 
-            <div class="col-12 col-lg-6">
-                <img src="app-landing-page/img/banner-image.png">
+            <div class="col-12 col-lg-6" style="padding: 30px !important;">
+                <img src="{{asset('taxi-bg.png')}}" style="padding: 0 !important;" alt="Taxi image">
             </div>
         </div>
     </div>
@@ -148,16 +153,31 @@
 <!--END FEATURES-->
 
 
-<div class="adv-sec" id="adv-sec" style="background-image:url('app-landing-page/img/adver-banner.jpg')">
+<div class="adv-sec" id="adv-sec" style="background-image:url({{asset('adver-banner.jpg')}})">
     <div class="overlay"></div>
     <div class="container">
         <div class="row">
             <div class="col-12 text-center">
                 <div class="download-app">
-                    <h2>Download The App On</h2>
-                    <a href="#" class="btn btn-white-with-black-hover"><i class="lni-apple"></i> App Play</a>
-                    <a href="#" class="btn btn-white-with-black-hover"><i class="lni-android-original"></i> Play
-                        Store</a>
+                    <h2>Contact us</h2>
+                    <form action="{{route('contact')}}" class="row" method="POST">
+                        @csrf
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <input type="text" name="name" class="form-control" required
+                                       placeholder="Enter Your Name">
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <input type="text" name="phone" id="selector" class="phone form-control" required
+                                       placeholder="Enter Your Phone Number">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="submit" class="form-control btn btn-secondary rounded" value="Submit">
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -176,28 +196,19 @@
             <div class="col-lg-6">
                 <div class="footer-social text-lg-left">
                     <ul class="list-unstyled">
-                        <li><a class="wow fadeInUp" href="javascript:void(0);"><i aria-hidden="true"
-                                                                                  class="fab fa-facebook-f"></i></a>
-                        </li>
-                        <li><a class="wow fadeInDown" href="javascript:void(0);"><i aria-hidden="true"
-                                                                                    class="fab fa-twitter"></i></a></li>
-                        <li><a class="wow fadeInUp" href="javascript:void(0);"><i aria-hidden="true"
-                                                                                  class="fab fa-google-plus-g"></i></a>
-                        </li>
-                        <li><a class="wow fadeInDown" href="javascript:void(0);"><i aria-hidden="true"
-                                                                                    class="fab fa-linkedin-in"></i></a>
-                        </li>
-                        <li><a class="wow fadeInUp" href="javascript:void(0);"><i aria-hidden="true"
-                                                                                  class="fab fa-instagram"></i></a></li>
-                        <li><a class="wow fadeInDown" href="javascript:void(0);"><i aria-hidden="true"
-                                                                                    class="fab fa-pinterest-p"></i></a>
-                        </li>
+                        @foreach($socials as $social)
+                            <li><a class="wow fadeInUp" href="{{$social->url}}">
+                                    <i aria-hidden="true" class="{{$social->icon}}"></i></a>
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
             <!--Text-->
             <div class="col-lg-6 text-lg-right text-center">
-                <p class="company-about fadeIn">© 2020 MegaOne. Made With Love By <a href="javascript:void(0);">Themesindustry</a>
+                <p class="company-about fadeIn">© {{\Illuminate\Support\Carbon::now()->format('Y')}} <a href="">iSoftware.</a>
+                    All
+                    Rights Reserved.</p>
                 </p>
             </div>
         </div>
@@ -232,6 +243,12 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJRG4KqGVNvAPY4UcVDLcLNXMXk2ktNfY"></script>
 <!-- custom script-->
 <script src="{{asset('app-landing-page/js/script.js')}}"></script>
+<script src="{{asset('app-landing-page/js/inputmask.js')}}"></script>
+<script>
+    let selector = document.getElementById("selector");
+    let im = new Inputmask("+\\9\\98(99)999-99-99", {'clearIncomplete': true});
+    im.mask(selector);
+</script>
 
 </body>
 </html>
